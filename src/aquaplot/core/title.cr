@@ -4,7 +4,6 @@ module TitleModule
   # Handles parsing of title options to return a valid string
   # that will be appending to the gnuplot input file
   class Title
-
     # Title for the plot.  If this is empty, the plot
     # is considered not to have a title
     property label : String
@@ -35,6 +34,5 @@ module TitleModule
       options += delimiter
       return options
     end
-
   end
 end

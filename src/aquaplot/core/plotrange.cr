@@ -7,7 +7,6 @@ module PlotRangeModule
   # TODO
   # - Implement datetime ranges and infer start and stop indexes from values
   class PlotRange
-
     # Start value for a range.  Currently only supports
     # Int32 values.
     property start : Int32
