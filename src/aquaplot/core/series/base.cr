@@ -1,15 +1,11 @@
 require "../plotrange"
+require "uuid"
 
 module SeriesBaseModule
   # Base class for all line graphs.  Inherits all properties from the
   # documentation for stying lines in gnuplot 5.2, barring pointinterval
   # and pointnumber which were not well documented
   abstract class LineBase
-    # The data to plot.  This can be a complex function, a file,
-    # a curve, or anything else that gnuplot supports.  These
-    # can be combined to produce complex graphs
-    property line : String
-
     # Provides configuration options for linetype.  These are default
     # provided at the moment, but this will be especially useful
     # when support is added to provide custom line types, which can be
@@ -36,7 +32,7 @@ module SeriesBaseModule
     # A seperate property associated with each line, analogous to linecolor or linewidth.
     # It is not necessary to place the current terminal in a special mode
     # just to draw dashed lines.
-    property dashtype : Int32 | String = ""
+    property dashtype : String = ""
 
     # Configuration option to draw a number of points instead of a continuous
     # line.  If this option is chosen, `pointtype` and `pointsize` will become relevant
@@ -45,7 +41,6 @@ module SeriesBaseModule
     # Inititialization only requires a line, all other options are
     # optional and will be ignored in the output if not changed.
     def initialize(
-      @line,
       @linetype = -1,
       @linecolor = "",
       @linewidth = -1,
@@ -104,8 +99,7 @@ module SeriesBaseModule
     # Converts a dashtype configuration string into a valid dashtype
     # for a gnuplot line.  This is ignored if with_points is true
     def parse_dashtype
-      dt = dashtype.to_s
-      if !dt.empty? & !(dt == "-1")
+      if !dashtype.empty?
         return "dt '#{dashtype}'"
       end
       return ""
@@ -124,7 +118,6 @@ module SeriesBaseModule
     # passed to gnuplot to create a graph
     def to_config
       config = [
-        line,
         parse_linetype,
         parse_linecolor,
         parse_linewidth,
@@ -138,5 +131,42 @@ module SeriesBaseModule
   end
 
   class FunctionLine < LineBase
+    # The data to plot.  This can be a complex function, a file,
+    # a curve, or anything else that gnuplot supports.  These
+    # can be combined to produce complex graphs
+    property function : String
+
+    def initialize(
+      @function,
+      **options
+    )
+      super(**options)
+    end
+
+    def to_config
+      config = super
+      return "#{function} #{config}"
+    end
+  end
+
+  class ArrayLine(T) < LineBase
+    # The data to plot.  This can be an array of
+    # numeric data
+    property series : Array(T)
+
+    def initialize(
+      @series : Array(T),
+      **options
+    )
+      super(**options)
+    end
+
+    def to_config
+      id = UUID.random.to_s
+      fname = "/tmp/#{id}.dat"
+      File.write(fname, series.join("\n"))
+      config = "'#{fname}' notitle " + super
+      return config
+    end
   end
 end
