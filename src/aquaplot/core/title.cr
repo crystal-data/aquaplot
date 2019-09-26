@@ -26,12 +26,12 @@ module TitleModule
     # A convenience function return valid Title configuration
     # options for a gnuplot plot.  Right now this only handles
     # text and font
-    def add_options(delimiter : Char = '\n')
-      options = ""
+    def add_options
+      options = Array(String).new
       if !@label.empty?
-        options += "set title \"#{label}\" font \",#{font}\""
+        # MUST USE SINGLE QUOTES HERE
+        options.push("set title '#{label}' font ',#{font}'")
       end
-      options += delimiter
       return options
     end
   end

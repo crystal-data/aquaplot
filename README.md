@@ -1,7 +1,7 @@
 # aquaplot
 
-AquaPlot is a simple, yet flexible wrapper around the extremely powerful
-[Gnuplot](http://www.gnuplot.info/).
+AquaPlot is a data visualization library for [crystal-lang](https://crystal-lang.org/).  Provides
+flexible and powerful charts to bring your data to life.
 
 ## Installation
 
