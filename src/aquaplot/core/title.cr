@@ -26,7 +26,7 @@ module TitleModule
     # A convenience function return valid Title configuration
     # options for a gnuplot plot.  Right now this only handles
     # text and font
-    def add_options
+    def to_config
       options = Array(String).new
       if !@label.empty?
         # MUST USE SINGLE QUOTES HERE

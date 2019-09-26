@@ -27,9 +27,10 @@ require "aquaplot"
 To create a simple plot from a function:
 
 ```crystal
-plt = AquaPlot::Plotter.from_function("tan(x)", -10, 10)
-plt.set_title("Sample AquaPlot Plot")
-plt.show
+fig = AquaPlot::FunctionLine.new "sin(x)", linewidth: 3, linecolor: "#0000FF"
+plt = AquaPlot::LinePlot(AquaPlot::FunctionLine).new fig
+plt.set_title("AquaPlot Demo")
+plt.save_fig("static/example_plot.png")
 ```
 
 ![sample_plot](static/example_plot.png)
