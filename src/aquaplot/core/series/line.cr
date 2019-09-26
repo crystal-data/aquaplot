@@ -1,7 +1,7 @@
 require "../plotrange"
 require "uuid"
 
-module SeriesBaseModule
+module LineBaseModule
   # Base class for all line graphs.  Inherits all properties from the
   # documentation for stying lines in gnuplot 5.2, barring pointinterval
   # and pointnumber which were not well documented
@@ -46,6 +46,12 @@ module SeriesBaseModule
     # If this is chosen, both line and point options are used
     property with_linespoints : Bool = false
 
+    # Configuration option to draw a line with impulses.
+    property with_impulses : Bool = false
+
+    # Allows filled curves
+    property with_filledcurves : Bool = false
+
     # Inititialization only requires a line, all other options are
     # optional and will be ignored in the output if not changed.
     def initialize(
@@ -57,7 +63,9 @@ module SeriesBaseModule
       @dashtype = "",
       @with_points = false,
       @with_lines = false,
-      @with_linespoints = false
+      @with_linespoints = false,
+      @with_impulses = false,
+      @with_filledcurves = false,
     )
     end
 
@@ -142,6 +150,21 @@ module SeriesBaseModule
       return ""
     end
 
+    # Converts a with_impulses boolean into a valid configuration.
+    def parse_withimpulses
+      if with_impulses
+        return "with impulses"
+      end
+      return ""
+    end
+
+    def parse_withfilledcurves
+      if with_filledcurves
+        return "with filledcurves"
+      end
+      return ""
+    end
+
     # Turns a LineBase into a valid configuration string to be
     # passed to gnuplot to create a graph
     def to_config
@@ -155,6 +178,8 @@ module SeriesBaseModule
         parse_withpoints,
         parse_withlines,
         parse_withlinespoints,
+        parse_withimpulses,
+        parse_withfilledcurves,
       ].join(" ")
       return config
     end

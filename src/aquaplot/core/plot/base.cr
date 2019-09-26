@@ -1,7 +1,7 @@
 require "../title"
 require "../plotrange"
 require "../canvas"
-require "../series/base"
+require "../series/line"
 
 module PlotBaseModule
   # Including these allows for much easier namespace
@@ -10,7 +10,7 @@ module PlotBaseModule
   include CanvasModule
   include TitleModule
   include PlotRangeModule
-  include SeriesBaseModule
+  include LineBaseModule
 
   # Helper class to combine the attributes of a gnuplot graph
   # into a valid configuration file to be passed directly to
@@ -102,11 +102,19 @@ module PlotBaseModule
 
   class LinePlot(T) < PlotBase
     property series : Array(T)
+    property samples : Int32 = -1
 
-    def initialize(@series)
+    def initialize(@series : Array(T), @samples = -1)
     end
 
-    def initialize(series : T)
+    def parse_samples
+      if samples > -1
+        return "set samples #{samples}"
+      end
+      return ""
+    end
+
+    def initialize(series : T, @samples = -1)
       @series = [series]
     end
 
@@ -115,7 +123,21 @@ module PlotBaseModule
       plots = series.map do |el|
         el.to_config
       end
+      config.push(parse_samples)
       config.push("plot #{plots.join(", ")}")
+      return config
+    end
+  end
+
+  class BarPlot(T) < PlotBase
+    property series : T
+
+    def initialize(@series : T)
+    end
+
+    private def build_plot(fname : String = "")
+      config = super
+      config += series.to_config
       return config
     end
   end

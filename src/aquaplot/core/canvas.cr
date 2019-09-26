@@ -22,7 +22,11 @@ module CanvasModule
     # Please be aware that setting scale values larger than 1 may
     # cause problems.
     property scale : NamedTuple(x: Int32, y: Int32) = {x: 1, y: 1}
+
+    # customizes the font displayed on the canvas.  Make sure the font
+    # is available to gnuplot if something goes wrong
     property font : String = "Arial,12"
+
 
     # Empty initialization used only by Plotter to create a default
     # canvas if the user does not specify a different one
