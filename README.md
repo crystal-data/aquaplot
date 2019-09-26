@@ -27,9 +27,13 @@ require "aquaplot"
 To create a simple plot from a function:
 
 ```crystal
-fig = AquaPlot::FunctionLine.new "sin(x)", linewidth: 3, linecolor: "#0000FF"
-plt = AquaPlot::LinePlot(AquaPlot::FunctionLine).new fig
-plt.set_title("AquaPlot Demo")
+include AquaPlot
+
+figs = ["sin(x)", "tan(x)", "cos(x)"].map do |fn|
+  FunctionLine.new fn, linewidth: 2
+end
+
+plt = LinePlot(FunctionLine).new figs
 plt.save_fig("static/example_plot.png")
 ```
 
