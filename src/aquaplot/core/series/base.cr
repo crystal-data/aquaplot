@@ -38,6 +38,14 @@ module SeriesBaseModule
     # line.  If this option is chosen, `pointtype` and `pointsize` will become relevant
     property with_points : Bool = false
 
+    # Configuration option to draw a line instead of individual points
+    # If this is chosen, all line related options are used
+    property with_lines : Bool = false
+
+    # Configuration option to draw a line and points
+    # If this is chosen, both line and point options are used
+    property with_linespoints : Bool = false
+
     # Inititialization only requires a line, all other options are
     # optional and will be ignored in the output if not changed.
     def initialize(
@@ -47,7 +55,9 @@ module SeriesBaseModule
       @pointtype = -1,
       @pointsize = -1,
       @dashtype = "",
-      @with_points = false
+      @with_points = false,
+      @with_lines = false,
+      @with_linespoints = false
     )
     end
 
@@ -114,6 +124,24 @@ module SeriesBaseModule
       return ""
     end
 
+    # Converts a withlines boolean into a valid lines Configuration
+    # option for a gnuplot line
+    def parse_withlines
+      if with_lines
+        return "with lines"
+      end
+      return ""
+    end
+
+    # Converts a withlinepoints boolean into a valid linepoints configuration
+    # This an the options above should be exclusive
+    def parse_withlinespoints
+      if with_linespoints
+        return "with linespoints"
+      end
+      return ""
+    end
+
     # Turns a LineBase into a valid configuration string to be
     # passed to gnuplot to create a graph
     def to_config
@@ -125,6 +153,8 @@ module SeriesBaseModule
         parse_pointsize,
         parse_dashtype,
         parse_withpoints,
+        parse_withlines,
+        parse_withlinespoints,
       ].join(" ")
       return config
     end
@@ -152,19 +182,39 @@ module SeriesBaseModule
   class ArrayLine(T) < LineBase
     # The data to plot.  This can be an array of
     # numeric data
-    property series : Array(T)
+    property xdata : Array(T)
+    property ydata : Array(T) = Array(T).new
 
     def initialize(
-      @series : Array(T),
+      @xdata : Array(T),
       **options
     )
       super(**options)
     end
 
+    def initialize(
+      @xdata : Array(T),
+      @ydata : Array(T),
+      **options
+    )
+      super(**options)
+    end
+
+    private def join_xy_data
+      if ydata.size
+        data = xdata.zip(ydata).map do |x, y|
+          "#{x}\t#{y}"
+        end
+        return data.join("\n")
+      end
+      return xdata.join("\n")
+    end
+
     def to_config
       id = UUID.random.to_s
       fname = "/tmp/#{id}.dat"
-      File.write(fname, series.join("\n"))
+      data = join_xy_data
+      File.write(fname, data)
       config = "'#{fname}' notitle " + super
       return config
     end
