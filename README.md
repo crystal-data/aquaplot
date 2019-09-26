@@ -34,10 +34,10 @@ figs = ["sin(x)", "tan(x)", "cos(x)"].map do |fn|
 end
 
 plt = LinePlot(FunctionLine).new figs
-plt.save_fig("static/example_plot.png")
+plt.save_fig("static/example_img.png")
 ```
 
-![sample_plot](static/example_plot.png)
+![sample_plot](static/example_img.png)
 
 
 
