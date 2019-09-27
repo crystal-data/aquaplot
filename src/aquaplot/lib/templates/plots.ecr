@@ -1,0 +1,16 @@
+# Generated configuration file for a gnuplot.
+# This is automatically generated using options
+# provided by the user, however some options
+# are preset by the library to support a
+# distinct feel for basic graphs
+
+# Title Options
+set title <%= @title %> size <%= @size[:x] %>, <%= @size[:y] %>
+
+# Plot scale
+set size <%= @scale[x:] %>, <%= @scale[:y] %>
+
+# Set options
+<%- @options.each do |option| -%>
+set <%= option.key %> <%= option.value %>
+<%- end -%>

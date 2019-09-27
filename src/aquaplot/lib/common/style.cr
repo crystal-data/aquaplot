@@ -1,19 +1,31 @@
 require "../meta/base"
+require "../common/option"
 
 abstract class Style < ConfigurationObject
     property style : String
     property linestyle : String | Int32
     property linetype : String | Int32
-    property linewidth : Int32
+    property linewidth : Int32 | Float64
     property linecolor : String
     property pointtype : Int32
     property pointsize : Int32
     property fill : String
     property fillcolor : String
+    property settings : Array(Option) = Array(Option).new
 
   def initialize(
     @style, @linestyle, @linetype, @linewidth, @linecolor, @pointtype,
-    @pointsize, @fill, @fillcolor)
+    @pointsize, @fill, @fillcolor, @settings)
+  end
+
+  def set_option(key : String, value : String | Int32 | Float64)
+    options.push(Option.new key, value)
+  end
+
+  def get_settings
+    settings.map do |el|
+      el.commands.join("\n")
+    end
   end
 
   def set_linestyle(@linestyle)
@@ -117,7 +129,7 @@ end
 class LineStyle < Style
   def initialize(
     @style = "linespoints",
-    @linestyle = 1,
+    @linestyle = -1,
     @linetype = -1,
     @linewidth = 2,
     @linecolor = "",
@@ -125,10 +137,25 @@ class LineStyle < Style
     @pointsize = 1,
     @fill = "",
     @fillcolor = "",
+    @settings = Array(Option).new
     )
     super
   end
 end
 
-style = LineStyle.new
-puts style.commands
+class BarStyle < Style
+  def initialize(
+    @style = "boxes",
+    @linestyle = -1,
+    @linetype = -1,
+    @linewidth = -1,
+    @linecolor = "",
+    @pointtype = -1,
+    @pointsize = -1,
+    @fill = "solid",
+    @fillcolor = "",
+    @settings = [Option.new "boxwidth", 0.75]
+    )
+    super
+  end
+end

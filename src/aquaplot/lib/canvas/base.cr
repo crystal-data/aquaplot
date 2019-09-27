@@ -29,3 +29,11 @@ class Canvas < ConfigurationObject
     [terminal_size, terminal_scale]
   end
 end
+
+class QtCanvas < Canvas
+  property term = QtTerminal.new
+end
+
+class PngCanvas < Canvas
+  property term = PngTerminal.new
+end
