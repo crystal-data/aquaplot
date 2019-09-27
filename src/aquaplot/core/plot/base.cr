@@ -71,6 +71,7 @@ module PlotBaseModule
     # by deleting the file.  This requires that the script has write access
     # where it is run.
     private def gnuplot_dispatch(config)
+      puts config.join("\n")
       Process.run("gnuplot -p -e \"#{config.join("; ")}\"", shell: true)
     end
 

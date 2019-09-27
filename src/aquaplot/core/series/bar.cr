@@ -4,13 +4,13 @@ module BarBaseModule
   abstract class BarBase
 
     property boxwidth : Float64 | Int32 = 1
-    property style : Array(String) = ["fill solid", "data histograms"]
+    property style : Array(String) = ["fill solid", "data histogram", "histogram cluster gap 1"]
 
-    def initialize(@boxwidth = 1, @style = ["fill solid", "histogram clustered gap 0.5"])
+    def initialize(@boxwidth = 1, @style = ["fill solid", "data histogram", "histogram cluster gap 1"])
     end
 
     def parse_boxwidth
-      "set boxwidth #{boxwidth} relative"
+      "set boxwidth #{boxwidth} absolute"
     end
 
     def parse_style
