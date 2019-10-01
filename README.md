@@ -1,7 +1,8 @@
 # aquaplot
 
-AquaPlot is a data visualization library for [crystal-lang](https://crystal-lang.org/).  Provides
-flexible and powerful charts to bring your data to life.
+AquaPlot is a data visualization library for [crystal-lang](https://crystal-lang.org/).  It provides an easy to user interface to create visually
+appealing charts.  This project is currently in extremely unstable and active development.  Contributions are both welcomed and encourages,
+to get this library to a stable and useful state.
 
 ## Installation
 
@@ -24,37 +25,19 @@ instructions to install the library.
 require "aquaplot"
 ```
 
-Right now, creating curves from one or more functions is supported:
+Here is a minimal example to create a chart from trigonometric functions:
 
 ```crystal
-include AquaPlot
-
-figs = ["sin(x)", "tan(x)", "cos(x)"].map do |fn|
-  FunctionLine.new fn, linewidth: 2
-end
-
-plt = LinePlot(FunctionLine).new figs
-plt.save_fig("static/example_img.png")
+figs = ["sin(x)", "tan(x)", "cos(x)"].map { |en| AquaPlot::Function.new fn, linewidth: 3}
+plot = AquaPlot::Plot.new figs
+plot.set_title("Example AquaPlot Chart")
+plot.set_key("left box")
+plot.show
 ```
 
-![sample_plot](static/example_img.png)
+![aquaplot chart](./static/example_img.png)
 
-As is creating graphs from either an Array of `x` coordinates, or Arrays
-of `x` and `y` coordinates.
 
-```crystal
-x = (1...100).to_a
-y = (1...100).map { |index| Random.rand(index) }
-
-fig = ArrayLine.new(
-  x, y, with_linespoints: true, pointsize: 2, pointtype: 6, linecolor: "#FF8C00"
-)
-plt = LinePlot.new fig
-plt.set_title("Sample Plot")
-plt.show
-```
-
-![sample_plot2](static/example_array.png)
 
 
 

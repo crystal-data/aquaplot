@@ -1,13 +1,7 @@
-require "./plot/base"
-require "./plotrange"
-require "./title"
-require "./canvas"
-require "./series/bar"
+require "./figures/function"
+require "./plot/plot2d"
 
-module Core
-  include PlotBaseModule
-  include BarBaseModule
-  include TitleModule
-  include PlotRangeModule
-  include CanvasModule
+module CoreModule
+  include FunctionModule
+  include PlotModule
 end
