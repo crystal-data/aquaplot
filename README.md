@@ -35,7 +35,7 @@ plot.set_key("left box")
 plot.show
 ```
 
-![aquaplot chart](./static/example_img.png)
+![aquaplot chart](./static/example_functions.png)
 
 
 
