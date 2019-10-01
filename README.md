@@ -31,8 +31,8 @@ Here is a minimal example to create a chart from trigonometric functions:
 figs = ["sin(x)", "tan(x)", "cos(x)"].map { |en| AquaPlot::Function.new fn, linewidth: 3}
 plot = AquaPlot::Plot.new figs
 plot.set_title("Example AquaPlot Chart")
-plt.set_key("left box")
-plt.show
+plot.set_key("left box")
+plot.show
 ```
 
 ![aquaplot chart](./static/example_img.png)
