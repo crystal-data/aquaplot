@@ -37,8 +37,19 @@ plot.show
 
 ![aquaplot chart](./static/example_img.png)
 
+Basic 3D Plots are also supported
 
+```crystal
+fig1 = AquaPlot::Function.new "x**2 + y**2"
+fig2 = AquaPlot::Function.new "x**2 - y**2"
 
+plot = AquaPlot::Plot3D.new [fig1, fig2]
+plot.set_title("Basic 3D Plot")
+plot.set_key("right box title 'Functions'")
+plot.show
+```
+
+![aquaplot 3d chart](./static/example_3d.png)
 
 
 ## Development
