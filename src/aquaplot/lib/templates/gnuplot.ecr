@@ -1,0 +1,15 @@
+# Generated configuration file for a gnuplot.
+# This is automatically generated using options
+# provided by the user, however some options
+# are preset by the library to support a
+# distinct feel for basic graphs
+
+# Set/Show Options
+<%- @fns.each do |fn| -%>
+<%- func = self.getattr("get_#{fn}") -%>
+<%- if func -%>
+set <%= fn %> <%= func %>
+<%- end -%>
+<%- end -%>
+
+plot sin(x)
