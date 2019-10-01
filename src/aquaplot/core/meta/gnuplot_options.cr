@@ -109,6 +109,7 @@ module GnuOptionsModule
     {name: ticslevel, dtype: Union(Int32 | Nil), default: nil},
     {name: ticscale, dtype: Union(Int32 | Nil), default: nil},
     {name: time, dtype: Union(Bool | Nil), default: nil},
+    {name: grid, dtype: Union(Bool | Nil), default: true},
     # {name: title, dtype: Union(String | Nil), default: nil},
     # {name: trange, dtype: Union(Array(Int32 | Float64) | Nil), default: nil},
     # {name: urange, dtype: Union(Array(Int32 | Float64) | Nil), default: nil},
