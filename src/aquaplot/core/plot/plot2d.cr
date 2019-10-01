@@ -7,6 +7,7 @@ module PlotModule
   include GnuOptionsModule
   include LineOptionsModule
   include FunctionModule
+
   class Plot(T) < GnuOptions
     property figures : Array(T)
 
@@ -17,7 +18,7 @@ module PlotModule
 
     def process_style(figures : Array(LineOptions))
       @figures.each_with_index do |el, index|
-        el.set_linestyle(index+1)
+        el.set_linestyle(index + 1)
       end
     end
 

@@ -7,11 +7,11 @@ module GnuOptionsModule
       {% for opt in options %}
       property {{ opt[:name] }} : {{ opt[:dtype] }}
 
-      def set_{{ opt[:name]}}(value)
+      def set_{{ opt[:name] }}(value)
         @{{ opt[:name] }} = value
       end
 
-      def get_{{ opt[:name]}}
+      def get_{{ opt[:name] }}
         if @{{opt[:name]}}.is_a?(Bool)
           return ""
         end
@@ -93,7 +93,7 @@ module GnuOptionsModule
   end
 
   create_gnuoptions [
-    {name: angles, dtype: Union(String | Nil), default: nil },
+    {name: angles, dtype: Union(String | Nil), default: nil},
     {name: key, dtype: Union(String | Nil), default: nil},
     {name: parametric, dtype: Union(Bool | Nil), default: nil},
     {name: contour, dtype: Union(String | Nil), default: nil},
