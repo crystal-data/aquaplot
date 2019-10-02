@@ -25,6 +25,8 @@ module GnuOptionsModule
       property title : String | Nil
       property xlabel : String | Nil
       property ylabel : String | Nil
+      property yrange : NamedTuple(min: Int32, max: Int32) = {min: 0, max: 0}
+      property xrange : NamedTuple(min: Int32, max: Int32) = {min: 0, max: 0}
 
       def get_title
         if !@title.nil?
@@ -56,6 +58,26 @@ module GnuOptionsModule
       def set_ylabel(@ylabel)
       end
 
+      def get_yrange
+        if @yrange[:min] != @yrange[:max]
+          return "[#{@yrange[:min]}:#{@yrange[:max]}]"
+        end
+      end
+
+      def set_yrange(min, max)
+        @yrange = {min: min, max: max}
+      end
+
+      def get_xrange
+        if @xrange[:min] != @xrange[:max]
+          return "[#{@xrange[:min]}:#{@xrange[:max]}]"
+        end
+      end
+
+      def set_xrange(min, max)
+        @xrange = {min: min, max: max}
+      end
+
       # End of custom properties
 
       getattr [
@@ -66,6 +88,8 @@ module GnuOptionsModule
         get_title,
         get_xlabel,
         get_ylabel,
+        get_yrange,
+        get_xrange,
       ]
 
       getter fns = [
@@ -76,6 +100,8 @@ module GnuOptionsModule
         "title",
         "xlabel",
         "ylabel",
+        "yrange",
+        "xrange",
       ]
 
       def initialize(
@@ -88,7 +114,32 @@ module GnuOptionsModule
         )
       end
 
-      ECR.def_to_s "src/aquaplot/core/templates/gnuplot_file.ecr"
+      def to_s
+        file =\
+        "
+# Generated configuration file for a gnuplot.
+# This is automatically generated using options
+# provided by the user, however some options
+# are preset by the library to support a
+# distinct feel for basic graphs
+
+set style line 1 lc rgb '#A00000'
+set style line 2 lc rgb '#00A000'
+set style line 3 lc rgb '#5060D0'
+set style line 4 lc rgb '#0000A0'
+set style line 5 lc rgb '#D0D000'
+set style line 6 lc rgb '#00D0D0'
+set style line 7 lc rgb '#B200B2'
+        "
+
+        @fns.each do |fn|
+          func = self.getattr("get_#{fn}")
+          if func
+            file += "\nset #{fn} #{func}\n"
+          end
+        end
+        return file
+      end
     end
   end
 

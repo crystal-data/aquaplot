@@ -21,11 +21,24 @@ module LineOptionsModule
 
       # Custom properties
       property linecolor : String | Nil
+      property title : String | Nil
 
       def get_linecolor
         if !@linecolor.nil?
           return "rgb '#{@linecolor}'"
         end
+      end
+
+      def get_title
+        if !@title.nil?
+          return "'#{@title}'"
+        end
+      end
+
+      def set_linecolor(@linecolor)
+      end
+
+      def set_title(@title)
       end
 
       # End of custom properties
@@ -36,6 +49,7 @@ module LineOptionsModule
         {% end %}
         # Custom getters
         get_linecolor,
+        get_title,
       ]
 
       getter fns = [
@@ -43,7 +57,8 @@ module LineOptionsModule
         "{{ opt[:name] }}",
         {% end %}
         # Custom fns
-        "linecolor"
+        "linecolor",
+        "title",
       ]
 
       def initialize(
@@ -51,10 +66,20 @@ module LineOptionsModule
         @{{ opt[:name] }}={{ opt[:default] }},
         {% end %}
         @linecolor=nil,
+        @title=nil,
         )
       end
 
-      ECR.def_to_s "src/aquaplot/core/templates/lineoptions_file.ecr"
+      def to_s
+        line = ""
+        @fns.each do |fn|
+          func = getattr("get_#{fn}")
+          if func
+            line += " #{fn} #{func}"
+          end
+        end
+        return line
+      end
     end
   end
 
