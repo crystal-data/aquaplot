@@ -26,6 +26,9 @@ module PlotModule
       end
     end
 
+    def process_style(figures : Array(PointOptions))
+    end
+
     def initialize(figure : T, **options)
       super(**options)
       @figures = [figure]
