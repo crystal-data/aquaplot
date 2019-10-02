@@ -13,6 +13,10 @@ module PlotModule
 
     def initialize(@figures : Array(T), **options)
       super(**options)
+      preprocess
+    end
+
+    def preprocess
       process_style(@figures)
     end
 
@@ -25,7 +29,7 @@ module PlotModule
     def initialize(figure : T, **options)
       super(**options)
       @figures = [figure]
-      process_style(@figures)
+      preprocess
     end
 
     def to_s

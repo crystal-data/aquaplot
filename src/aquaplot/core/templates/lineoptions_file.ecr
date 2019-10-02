@@ -1,4 +1,0 @@
-<%- @fns.each do |fn| -%>\
-<%- func = self.getattr("get_#{fn}") -%>\
-<%- if func %> <%=fn %> <%=func%> <%- end -%>\
-<%- end -%>
