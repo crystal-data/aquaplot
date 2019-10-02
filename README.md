@@ -1,7 +1,7 @@
 # aquaplot
 
 AquaPlot is a data visualization library for [crystal-lang](https://crystal-lang.org/).  It provides an easy to user interface to create visually
-appealing charts.  This project is currently in extremely unstable and active development.  Contributions are both welcomed and encourages,
+appealing charts.  This project is currently in extremely unstable and active development.  Contributions are both welcomed and encouraged,
 to get this library to a stable and useful state.
 
 ## Installation
