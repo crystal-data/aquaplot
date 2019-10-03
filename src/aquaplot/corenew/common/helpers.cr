@@ -1,4 +1,6 @@
 require "./exceptions"
+require "../series/base"
+require "uuid"
 
 # Creates a data file containing a one-dimensional
 # dataset and an optional header.
@@ -18,10 +20,13 @@ def _create_data_file(
   linesep = "\n"
 )
   f = File.open(filename, "w")
+
+  # writes header if needed
   if !header.nil?
-    f << "#{header}#{linesep}"
+    f << "##{header}#{linesep}"
   end
 
+  # write delimited data
   f << arr.join(linesep)
   f.close
 end
@@ -47,10 +52,9 @@ def _create_data_file(
   has_header = headers.size > 0
 
   if has_header
-    inner = arr.map { |el| el.size }
     hz = headers.size
-    jagged = inner.index { |el| el != hz }
-    if !jagged.nil?
+    jagged = !arr.all? { |row| row.size == headers.size }
+    if jagged
       raise ShapeError.new("Shape mismatch when comparing headers to values")
     end
   end
@@ -58,10 +62,57 @@ def _create_data_file(
   f = File.open(filename, "w")
 
   if has_header
-    f << "#{headers.join(sep)}#{linesep}"
+    f << "##{headers.join(sep)}#{linesep}"
   end
   arr.each do |e|
     f << "#{e.join(sep)}#{linesep}"
   end
   f.close
+end
+
+# Returns information to create a temporary file.
+# Currently this only supports unix temporary folder,
+# but whenever Crystal gets ported to windows having
+# this implementation in a single place will be nice.
+#
+# tmppath : String
+# - temporary path to place temporary file
+def _temporary_file(tmppath="/tmp/")
+  if !Dir.exists?(tmppath)
+    raise DirectoryNotFoundError.new("The directory #{tmppath} does not exist")
+  end
+
+  fname = UUID.random.to_s
+  return "#{tmppath}#{fname}"
+end
+
+# Cleans up the temporary file left by a dataset
+# which generally should be run on the closing of
+# a plot.  If these are not deleted, they will be
+# deleted whenever the operating system clears temporary
+# files
+#
+# dataset : DataSet
+# - the object to clean up
+def _cleanup_dataset(dataset : DataSet)
+  if dataset.cleanup
+    if File.exists?(dataset.filename)
+      File.delete(dataset.filename)
+    end
+  end
+end
+
+
+def _option_to_string(key : String, value : String, quotes = false)
+  if !value.empty?
+    prop = quotes ? "'#{value}'" : value
+    return "#{key} #{prop}"
+  end
+end
+
+def _option_to_string(key : String, value : Int32, quotes = false)
+  if value > 0
+    prop = quotes ? "'#{value}'" : value
+    return "#{key} #{prop}"
+  end
 end

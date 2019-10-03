@@ -3,3 +3,6 @@ end
 
 class ShapeError < Exception
 end
+
+class DirectoryNotFoundError < Exception
+end
