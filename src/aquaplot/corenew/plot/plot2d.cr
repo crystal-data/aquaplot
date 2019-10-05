@@ -1,6 +1,7 @@
 require "./base"
 require "../series/base"
 require "../series/line"
+require "../series/function"
 
 class Plot(T) < GlobalPlotOptions
   property figures : Array(T)
