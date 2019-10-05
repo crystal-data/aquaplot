@@ -2,6 +2,7 @@ require "./base"
 
 module Plot3DModule
   include PlotBaseModule
+
   class Plot3D(T) < PlotBase(T)
     def to_s
       figs = @figures.map do |fig|

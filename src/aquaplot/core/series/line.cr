@@ -4,6 +4,7 @@ require "../common/exceptions"
 
 module LineModule
   include SeriesBaseModule
+
   class Line < XorXY
     #
     # INITIALIZATION

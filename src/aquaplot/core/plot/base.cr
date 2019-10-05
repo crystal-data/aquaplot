@@ -5,6 +5,7 @@ require "../series/base"
 module PlotBaseModule
   include OptionsModule
   include SeriesBaseModule
+
   class GlobalPlotOptions < DataSet
     #
     # GETTERS
