@@ -25,32 +25,54 @@ instructions to install the library.
 require "aquaplot"
 ```
 
-Here is a minimal example to create a chart from trigonometric functions:
+### Function Charts
 
 ```crystal
-figs = ["sin(x)", "tan(x)", "cos(x)"].map { |en| AquaPlot::Function.new fn, linewidth: 3}
-plot = AquaPlot::Plot.new figs
-plot.set_title("Example AquaPlot Chart")
-plot.set_key("left box")
-plot.show
+fns = ["sin(x)", "cos(x)", "tan(x)", "atan(x)", "asin(x)"].map do |fn|
+  AquaPlot::Function.new fn
+end
+
+plt = AquaPlot::Plot.new fns
+plt.show
+plt.close
 ```
 
-![aquaplot chart](./static/example_img.png)
+![aquaplot chart](./static/trig_functions.png)
 
-Basic 3D Plots are also supported
+### 3D Function Charts
 
 ```crystal
-fig1 = AquaPlot::Function.new "x**2 + y**2"
-fig2 = AquaPlot::Function.new "x**2 - y**2"
+fns = ["x**2 + y**2", "x**2 - y**2", "x**2 * y**2", "x**2 / y**2"].map do |fn|
+  AquaPlot::Function.new fn
+end
 
-plot = AquaPlot::Plot3D.new [fig1, fig2]
-plot.set_title("Basic 3D Plot")
-plot.set_key("right box title 'Functions'")
-plot.show
+plt = AquaPlot::Plot3D.new fns
+plt.set_key("left box")
+plt.show
+plt.close
 ```
 
-![aquaplot 3d chart](./static/example_3d.png)
+![aquaplot 3d chart](./static/function_3d.png)
 
+### 2D Line Charts
+
+```crystal
+lines = (1...5).map do |n|
+  AquaPlot::Line.new (0...10).map { |el| Random.rand(50) }, title: "Line #{n}"
+end
+
+lines[0].show_points
+lines[1].set_linewidth 1
+
+plt = AquaPlot::Plot.new lines
+
+plt.set_title("Showing Some Options")
+
+plt.show
+plt.close
+```
+
+![aquaplot 3d chart](./static/line_options.png)
 
 ## Development
 

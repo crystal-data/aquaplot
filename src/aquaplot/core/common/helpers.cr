@@ -1,5 +1,4 @@
 require "./exceptions"
-require "../series/base"
 require "uuid"
 
 # Creates a data file containing a one-dimensional
@@ -94,7 +93,7 @@ end
 #
 # dataset : DataSet
 # - the object to clean up
-def _cleanup_dataset(dataset : DataSet)
+def _cleanup_dataset(dataset)
   if dataset.cleanup
     if File.exists?(dataset.filename)
       File.delete(dataset.filename)
@@ -119,7 +118,7 @@ end
 def _setting_to_string(key : String, value : String, quotes = false)
   if !value.empty?
     prop = quotes ? "'#{value}'" : value
-    return "set #{key} #{value}"
+    return "set #{key} #{prop}"
   end
 end
 
