@@ -35,5 +35,4 @@ class Function < LineOptions
       get_title,
     ].join(" ")
   end
-
 end
