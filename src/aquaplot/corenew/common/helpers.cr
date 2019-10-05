@@ -77,7 +77,7 @@ end
 #
 # tmppath : String
 # - temporary path to place temporary file
-def _temporary_file(tmppath="/tmp/")
+def _temporary_file(tmppath = "/tmp/")
   if !Dir.exists?(tmppath)
     raise DirectoryNotFoundError.new("The directory #{tmppath} does not exist")
   end
@@ -102,7 +102,6 @@ def _cleanup_dataset(dataset : DataSet)
   end
 end
 
-
 def _option_to_string(key : String, value : String, quotes = false)
   if !value.empty?
     prop = quotes ? "'#{value}'" : value
@@ -110,9 +109,22 @@ def _option_to_string(key : String, value : String, quotes = false)
   end
 end
 
-def _option_to_string(key : String, value : Int32, quotes = false)
+def _option_to_string(key : String, value : Number, quotes = false)
   if value > 0
     prop = quotes ? "'#{value}'" : value
     return "#{key} #{prop}"
+  end
+end
+
+def _setting_to_string(key : String, value : String, quotes = false)
+  if !value.empty?
+    prop = quotes ? "'#{value}'" : value
+    return "set #{key} #{value}"
+  end
+end
+
+def _toggle_to_string(key : String, value : Bool)
+  if value
+    return "set #{key}"
   end
 end

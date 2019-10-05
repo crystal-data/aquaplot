@@ -3,7 +3,6 @@ require "../common/helpers"
 require "../common/exceptions"
 
 class Line < XorXY
-
   #
   # GETTERS
   #
@@ -19,9 +18,9 @@ class Line < XorXY
   def initialize(
     x : Indexable(Number),
     @linecolor : String = "",
-    @linewidth : Int32 = -1,
-    @pointtype : Int32 = 8,
-    @pointsize : Int32 = 3,
+    @linewidth : Int32 = 3,
+    @pointtype : Int32 = 7,
+    @pointsize : Int32 = 2,
     **options
   )
     super(x, **options)
@@ -31,7 +30,7 @@ class Line < XorXY
     x : Indexable(Number),
     y : Indexable(Number),
     @linecolor : String = "",
-    @linewidth : Int32 = -1,
+    @linewidth : Int32 = 3,
     @pointtype : Int32 = 8,
     @pointsize : Int32 = 3,
     **options
@@ -52,6 +51,10 @@ class Line < XorXY
 
   def get_pointtype
     _option_to_string "pt", @pointtype
+  end
+
+  def get_pointsize
+    _option_to_string "ps", @pointsize
   end
 
   def get_style
@@ -87,11 +90,9 @@ class Line < XorXY
       get_style,
       get_linecolor,
       get_linewidth,
+      get_pointtype,
+      get_pointsize,
       get_title,
     ].join(" ")
   end
 end
-
-line = Line.new (0...100).map { |el| Random.rand(100) }
-line.show_points()
-puts line.to_s

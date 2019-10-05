@@ -40,7 +40,7 @@ abstract class DataSet
   end
 end
 
-class XorXY < DataSet
+abstract class XorXY < DataSet
   def initialize(x : Indexable(Number), **options)
     super(**options)
     _create_data_file(x, @filename)
