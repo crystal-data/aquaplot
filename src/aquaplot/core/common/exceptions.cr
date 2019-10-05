@@ -6,3 +6,6 @@ end
 
 class DirectoryNotFoundError < Exception
 end
+
+class KeyError < Exception
+end
