@@ -9,7 +9,7 @@ module Plot3DModule
         fig.to_s
       end.join(", ")
 
-      return "#{super}\nsplot#{figs}"
+      "#{super}\nsplot#{figs}"
     end
   end
 end

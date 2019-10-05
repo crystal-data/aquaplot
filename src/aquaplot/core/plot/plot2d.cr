@@ -9,7 +9,7 @@ module Plot2DModule
         fig.to_s
       end.join(", ")
 
-      return "#{super}\nplot#{figs}"
+      "#{super}\nplot#{figs}"
     end
   end
 end
