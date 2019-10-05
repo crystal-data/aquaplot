@@ -1,0 +1,9 @@
+PreCommit:
+  CustomScript:
+    enabled: true
+    command: crystal spec
+  CustomScript:
+    enabled: true
+    command: crystal format
+  TrailingWhitespace:
+    enabled: true
