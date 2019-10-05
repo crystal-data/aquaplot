@@ -1,5 +1,5 @@
-require "../../../src/aquaplot/corenew/common/helpers"
-require "../../../src/aquaplot/corenew/series/base"
+require "../../../src/aquaplot/core/common/helpers"
+require "../../../src/aquaplot/core/series/base"
 
 TMP_PATH = "/tmp/test.dat"
 

@@ -52,7 +52,7 @@ def _create_data_file(
 
   if has_header
     hz = headers.size
-    jagged = !arr.all? { |row| row.size == headers.size }
+    jagged = !arr.all? { |row| row.size == hz }
     if jagged
       raise ShapeError.new("Shape mismatch when comparing headers to values")
     end
@@ -82,7 +82,7 @@ def _temporary_file(tmppath = "/tmp/")
   end
 
   fname = UUID.random.to_s
-  return "#{tmppath}#{fname}"
+  "#{tmppath}#{fname}"
 end
 
 # Cleans up the temporary file left by a dataset
