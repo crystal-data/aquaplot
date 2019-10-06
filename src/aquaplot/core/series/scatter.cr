@@ -11,20 +11,23 @@ module ScatterModule
     #
     property style : String = "points"
 
-    def initialize(
-      x : Indexable(Number),
-      **options
-    )
-      super(x, **options)
+    #
+    # MUTATORS
+    #
+    def show_lines
+      @style = "linespoints"
     end
 
-    def initialize(
-      x : Indexable(Number),
-      y : Indexable(Number),
-      **options
-    )
-      super(x, y, **options)
+    def hide_lines
+      @style = "points"
     end
+  end
+
+  class Scatter3D < XYZ
+    #
+    # INITIALIZATION
+    #
+    property style : String = "points"
 
     #
     # MUTATORS
