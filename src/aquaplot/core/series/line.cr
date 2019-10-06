@@ -7,23 +7,18 @@ module LineModule
 
   class Line < XorXY
     #
-    # INITIALIZATION
+    # MUTATORS
     #
-    def initialize(
-      x : Indexable(Number),
-      **options
-    )
-      super(x, **options)
+    def show_points
+      @style = "linespoints"
     end
 
-    def initialize(
-      x : Indexable(Number),
-      y : Indexable(Number),
-      **options
-    )
-      super(x, y, **options)
+    def hide_points
+      @style = "lines"
     end
+  end
 
+  class Line3D < XYZ
     #
     # MUTATORS
     #

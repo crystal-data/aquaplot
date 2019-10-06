@@ -41,7 +41,7 @@ module SeriesBaseModule
     end
   end
 
-  abstract class LineOptions < DataSet
+  abstract class SeriesOptions < DataSet
     #
     # GETTERS
     #
@@ -112,7 +112,7 @@ module SeriesBaseModule
     end
   end
 
-  abstract class XorXY < LineOptions
+  abstract class XorXY < SeriesOptions
     def initialize(x : Indexable(Number), **options)
       super(**options)
       _create_data_file(x, @filename)
@@ -121,6 +121,18 @@ module SeriesBaseModule
     def initialize(x : Indexable(Number), y : Indexable(Number), **options)
       super(**options)
       _create_data_file([x, y].transpose, @filename)
+    end
+  end
+
+  abstract class XYZ < SeriesOptions
+    def initialize(
+      x : Indexable(Number),
+      y : Indexable(Number),
+      z : Indexable(Number),
+      **options,
+    )
+      super(**options)
+      _create_data_file([x, y, z].transpose, @filename)
     end
   end
 end

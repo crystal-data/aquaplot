@@ -4,7 +4,7 @@ require "../common/helpers"
 module FunctionModule
   include SeriesBaseModule
 
-  class Function < LineOptions
+  class Function < SeriesOptions
     #
     # PROPERTIES
     #
