@@ -2,13 +2,15 @@ require "./base"
 require "../common/helpers"
 require "../common/exceptions"
 
-module LineModule
+module ScatterModule
   include SeriesBaseModule
 
-  class Line < XorXY
+  class Scatter < XorXY
     #
     # INITIALIZATION
     #
+    property style : String = "points"
+
     def initialize(
       x : Indexable(Number),
       **options
@@ -27,12 +29,12 @@ module LineModule
     #
     # MUTATORS
     #
-    def show_points
+    def show_lines
       @style = "linespoints"
     end
 
-    def hide_points
-      @style = "lines"
+    def hide_lines
+      @style = "points"
     end
   end
 end

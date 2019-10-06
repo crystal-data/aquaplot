@@ -149,6 +149,22 @@ def _setting_to_string(key : String, value : String, quotes = false)
   end
 end
 
+# Formats a numerical setting into a valid configuration
+# setting for gnuplot
+#
+# `key` : `String`
+# - Name of the option
+# `value` : `Number`
+# - value of the option
+# `quotes` : `Bool`
+# - necessary if a setting requires quotes
+def _setting_to_string(key : String, value : Number, quotes = false)
+  if value > 0
+    prop = quotes ? "'#{value}'" : value
+    return "set #{key} #{prop}"
+  end
+end
+
 # Formats a boolean option into a valid configuration
 # option for gnuplot
 #

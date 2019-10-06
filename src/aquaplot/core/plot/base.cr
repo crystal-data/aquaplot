@@ -11,6 +11,7 @@ module PlotBaseModule
     # GETTERS
     #
     property border : String
+    property boxwidth : String
     property grid : Bool
     property key : String
     property offsets : Offset
@@ -30,6 +31,7 @@ module PlotBaseModule
     #
     def initialize(
       @border = "",
+      @boxwidth = "0.6 relative",
       @grid = true,
       @key = "",
       @offsets = Offset.new,
@@ -47,6 +49,8 @@ module PlotBaseModule
       super()
       @offsets.set_key("offsets")
       @scale.set_key("size")
+      @yrange.set_key("yrange")
+      @xrange.set_key("xrange")
     end
 
     #
@@ -54,6 +58,10 @@ module PlotBaseModule
     #
     def get_border
       _setting_to_string "border", @border
+    end
+
+    def get_boxwidth
+      _setting_to_string "boxwidth", @boxwidth
     end
 
     def get_grid
@@ -110,6 +118,9 @@ module PlotBaseModule
     def set_border(@border)
     end
 
+    def set_boxwidth(@boxwidth)
+    end
+
     def set_grid(@grid)
     end
 
@@ -152,6 +163,7 @@ module PlotBaseModule
     def to_s
       [
         get_border,
+        get_boxwidth,
         get_grid,
         get_key,
         get_offsets,

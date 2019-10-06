@@ -97,17 +97,6 @@ module SeriesBaseModule
     end
 
     #
-    # MUTATORS
-    #
-    def show_points
-      @style = "linespoints"
-    end
-
-    def hide_points
-      @style = "lines"
-    end
-
-    #
     # SERIALIZER
     #
     def to_s
