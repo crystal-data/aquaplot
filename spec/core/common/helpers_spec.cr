@@ -1,5 +1,5 @@
-require "../../../src/aquaplot/core/common/helpers"
-require "../../../src/aquaplot/core/series/base"
+require "../../../src/common/helpers"
+require "../../../src/series/base"
 
 TMP_PATH = "/tmp/test.dat"
 
@@ -31,7 +31,7 @@ describe "Helpers" do
   end
 
   it "Ensure _create_data_file finds bad headers" do
-    expect_raises(ShapeError) do
+    expect_raises(AquaPlot::Exceptions::ShapeError) do
       _create_data_file [[1, 2], [3, 4]], TMP_PATH, ["X", "Y", "Z"]
     end
   end
@@ -50,7 +50,7 @@ describe "Helpers" do
   end
 
   it "Ensure _temporary_file finds missing directory" do
-    expect_raises(DirectoryNotFoundError) do
+    expect_raises(AquaPlot::Exceptions::DirectoryNotFoundError) do
       _temporary_file("/aksfjsal")
     end
   end

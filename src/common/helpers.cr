@@ -54,7 +54,7 @@ def _create_data_file(
     hz = headers.size
     jagged = !arr.all? { |row| row.size == hz }
     if jagged
-      raise ShapeError.new("Shape mismatch when comparing headers to values")
+      raise AquaPlot::Exceptions::ShapeError.new("Shape mismatch when comparing headers to values")
     end
   end
 
@@ -78,7 +78,7 @@ end
 # - temporary path to place temporary file
 def _temporary_file(tmppath = "/tmp/")
   if !Dir.exists?(tmppath)
-    raise DirectoryNotFoundError.new("The directory #{tmppath} does not exist")
+    raise AquaPlot::Exceptions::DirectoryNotFoundError.new("The directory #{tmppath} does not exist")
   end
 
   fname = UUID.random.to_s
