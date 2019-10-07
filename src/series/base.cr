@@ -55,7 +55,7 @@ abstract class AquaPlot::SeriesOptions < AquaPlot::DataSet
   #
   def initialize(
     @linecolor : String = "",
-    @linewidth : Int32 = 3,
+    @linewidth : Int32 = 1,
     @pointtype : Int32 = 7,
     @pointsize : Int32 = 2,
     **options
@@ -120,6 +120,13 @@ abstract class AquaPlot::XorXY < AquaPlot::SeriesOptions
   def initialize(x : Indexable(Number), y : Indexable(Number), **options)
     super(**options)
     _create_data_file([x, y].transpose, @filename)
+  end
+end
+
+abstract class AquaPlot::NColumns < AquaPlot::SeriesOptions
+  def initialize(*args, labels : Indexable(Number | String) | Nil = nil, **options)
+    super(**options)
+    puts args.to_a.transpose
   end
 end
 

@@ -11,6 +11,7 @@ class AquaPlot::GlobalPlotOptions < AquaPlot::DataSet
   property grid : Bool
   property key : String
   property offsets : AquaPlot::Util::Offset
+  property samples : Int32
   property scale : AquaPlot::Util::XY
   property terminal : String
   property tics : String
@@ -28,9 +29,11 @@ class AquaPlot::GlobalPlotOptions < AquaPlot::DataSet
   def initialize(
     @border = "",
     @boxwidth = "0.6 relative",
+    @data = "histograms",
     @grid = true,
     @key = "",
     @offsets = AquaPlot::Util::Offset.new,
+    @samples = 500,
     @scale = AquaPlot::Util::XY.new,
     @terminal = "qt",
     @tics = "",
@@ -38,8 +41,8 @@ class AquaPlot::GlobalPlotOptions < AquaPlot::DataSet
     @time = false,
     @title = "",
     @xlabel = "",
-    @ylabel = "",
     @xrange = AquaPlot::Util::XY.new,
+    @ylabel = "",
     @yrange = AquaPlot::Util::XY.new
   )
     super()
@@ -60,6 +63,10 @@ class AquaPlot::GlobalPlotOptions < AquaPlot::DataSet
     _setting_to_string "boxwidth", @boxwidth
   end
 
+  def get_data
+    _setting_to_string "style data", @data
+  end
+
   def get_grid
     _toggle_to_string "grid", @grid
   end
@@ -70,6 +77,10 @@ class AquaPlot::GlobalPlotOptions < AquaPlot::DataSet
 
   def get_offsets
     @offsets.to_s
+  end
+
+  def get_samples
+    _setting_to_string "samples", @samples
   end
 
   def get_terminal
@@ -117,6 +128,9 @@ class AquaPlot::GlobalPlotOptions < AquaPlot::DataSet
   def set_boxwidth(@boxwidth)
   end
 
+  def set_data(@data)
+  end
+
   def set_grid(@grid)
   end
 
@@ -125,6 +139,9 @@ class AquaPlot::GlobalPlotOptions < AquaPlot::DataSet
 
   def set_offsets(left = 0, right = 0, top = 0, bottom = 0)
     @offsets = AquaPlot::Util::Offset.new left, right, top, bottom, key: "offsets"
+  end
+
+  def set_samples(@samples)
   end
 
   def set_terminal(@terminal)
@@ -160,6 +177,7 @@ class AquaPlot::GlobalPlotOptions < AquaPlot::DataSet
     [
       get_border,
       get_boxwidth,
+      get_data,
       get_grid,
       get_key,
       get_offsets,

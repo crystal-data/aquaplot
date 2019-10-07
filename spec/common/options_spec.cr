@@ -1,5 +1,5 @@
-require "../../../src/common/options"
-require "../../../src/common/exceptions"
+require "../../src/common/options"
+require "../../src/common/exceptions"
 
 describe "Options" do
   it "Ensure offsets set_key mutates option" do

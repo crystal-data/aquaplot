@@ -1,5 +1,5 @@
-require "../../../src/common/helpers"
-require "../../../src/series/base"
+require "../../src/common/helpers"
+require "../../src/series/base"
 
 TMP_PATH = "/tmp/test.dat"
 
