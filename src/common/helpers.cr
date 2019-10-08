@@ -110,8 +110,8 @@ end
 # - value of the option
 # `quotes` : `Bool`
 # - necessary if an option requires quotes
-def _option_to_string(key : String, value : String, quotes = false)
-  if !value.empty?
+def _option_to_string(key : String, value : String | Nil, quotes = false)
+  if !"#{value}".empty?
     prop = quotes ? "'#{value}'" : value
     return "#{key} #{prop}"
   end
@@ -142,8 +142,8 @@ end
 # - value of the option
 # `quotes` : `Bool`
 # - necessary if a setting requires quotes
-def _setting_to_string(key : String, value : String, quotes = false)
-  if !value.empty?
+def _setting_to_string(key : String, value : String | Nil, quotes = false)
+  if !"#{value}".empty?
     prop = quotes ? "'#{value}'" : value
     return "set #{key} #{prop}"
   end
@@ -177,5 +177,11 @@ end
 def _toggle_to_string(key : String, value : Bool)
   if value
     return "set #{key}"
+  end
+end
+
+def _toggle_option_to_string(key : String, value : Bool)
+  if value
+    return "#{key}"
   end
 end
