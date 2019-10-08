@@ -11,6 +11,7 @@ class AquaPlot::GlobalPlotOptions < AquaPlot::DataSet
   property grid : Bool
   property key : String
   property offsets : AquaPlot::Util::Offset
+  property output : String
   property samples : Int32
   property scale : AquaPlot::Util::XY
   property terminal : String
@@ -33,6 +34,7 @@ class AquaPlot::GlobalPlotOptions < AquaPlot::DataSet
     @grid = true,
     @key = "",
     @offsets = AquaPlot::Util::Offset.new,
+    @output = "",
     @samples = 500,
     @scale = AquaPlot::Util::XY.new,
     @terminal = "qt",
@@ -77,6 +79,10 @@ class AquaPlot::GlobalPlotOptions < AquaPlot::DataSet
 
   def get_offsets
     @offsets.to_s
+  end
+
+  def get_output
+    _setting_to_string "output", @output, quotes: true
   end
 
   def get_samples
@@ -141,6 +147,9 @@ class AquaPlot::GlobalPlotOptions < AquaPlot::DataSet
     @offsets = AquaPlot::Util::Offset.new left, right, top, bottom, key: "offsets"
   end
 
+  def set_output(@output)
+  end
+
   def set_samples(@samples)
   end
 
@@ -181,6 +190,7 @@ class AquaPlot::GlobalPlotOptions < AquaPlot::DataSet
       get_grid,
       get_key,
       get_offsets,
+      get_output,
       get_terminal,
       get_tics,
       get_ticslevel,
@@ -212,6 +222,15 @@ class AquaPlot::PlotBase(T) < AquaPlot::GlobalPlotOptions
     @figures.each do |fig|
       fig.finalize
     end
+  end
+
+  def savefig(fname : String)
+    save_term = @terminal
+    self.set_terminal("png")
+    self.set_output(fname)
+    self.show
+    self.set_output("")
+    self.set_terminal(save_term)
   end
 
   def show
