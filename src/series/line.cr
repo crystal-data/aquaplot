@@ -3,9 +3,6 @@ require "../common/helpers"
 require "../common/exceptions"
 
 class AquaPlot::Line < AquaPlot::XorXY
-  #
-  # MUTATORS
-  #
   def show_points
     @style = "linespoints"
   end
@@ -16,9 +13,6 @@ class AquaPlot::Line < AquaPlot::XorXY
 end
 
 class AquaPlot::Line3D < AquaPlot::XYZ
-  #
-  # MUTATORS
-  #
   def show_points
     @style = "linespoints"
   end

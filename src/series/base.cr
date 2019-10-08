@@ -55,7 +55,7 @@ abstract class AquaPlot::SeriesOptions < AquaPlot::DataSet
   #
   def initialize(
     @linecolor : String = "",
-    @linewidth : Int32 = 1,
+    @linewidth : Int32 = 2,
     @pointtype : Int32 = 7,
     @pointsize : Int32 = 2,
     **options
