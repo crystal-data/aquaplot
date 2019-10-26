@@ -1,5 +1,7 @@
 # aquaplot
 
+[![Join the chat at https://gitter.im/crystal-data/aquaplot](https://badges.gitter.im/crystal-data/aquaplot.svg)](https://gitter.im/crystal-data/aquaplot?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 AquaPlot is a data visualization library for [crystal-lang](https://crystal-lang.org/).  It provides an easy to user interface to create visually
 appealing charts.  This project is currently in extremely unstable and active development.  Contributions are both welcomed and encouraged,
 to get this library to a stable and useful state.
