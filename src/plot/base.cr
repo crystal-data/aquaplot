@@ -224,9 +224,9 @@ class AquaPlot::PlotBase(T) < AquaPlot::GlobalPlotOptions
     end
   end
 
-  def savefig(fname : String)
+  def savefig(fname : String, terminal : String = "png")
     save_term = @terminal
-    self.set_terminal("png")
+    self.set_terminal(terminal)
     self.set_output(fname)
     self.show
     self.set_output("")
