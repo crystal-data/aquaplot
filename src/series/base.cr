@@ -1,4 +1,5 @@
 require "../common/helpers"
+require "../util/title"
 
 abstract class AquaPlot::DataSet
   #
@@ -6,13 +7,14 @@ abstract class AquaPlot::DataSet
   #
   property filename : String
   property cleanup : Bool = true
-  property title : String = ""
+  property title : AquaPlot::Util::Title = AquaPlot::Util::Title.new
 
   #
   # INITIALIZATION
   #
-  def initialize(@title = "")
+  def initialize(title = nil)
     @filename = _temporary_file
+    @title.set_title_text(title)
   end
 
   #
@@ -26,7 +28,7 @@ abstract class AquaPlot::DataSet
   # GETTERS
   #
   def get_title
-    _option_to_string "title", @title, quotes: true
+    @title.to_option
   end
 
   def get_filename
@@ -36,7 +38,8 @@ abstract class AquaPlot::DataSet
   #
   # SETTERS
   #
-  def set_title(@title)
+  def set_title(text)
+    @title.set_title_text(text)
   end
 end
 

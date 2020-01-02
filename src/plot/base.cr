@@ -1,6 +1,7 @@
 require "../common/helpers"
 require "../common/options"
 require "../series/base"
+require "../util/title"
 
 class AquaPlot::GlobalPlotOptions < AquaPlot::DataSet
   #
@@ -18,7 +19,7 @@ class AquaPlot::GlobalPlotOptions < AquaPlot::DataSet
   property tics : String
   property ticslevel : String
   property time : Bool
-  property title : String
+  property title : AquaPlot::Util::Title
   property xlabel : String
   property ylabel : String
   property xrange : AquaPlot::Util::XY
@@ -41,7 +42,7 @@ class AquaPlot::GlobalPlotOptions < AquaPlot::DataSet
     @tics = "",
     @ticslevel = "",
     @time = false,
-    @title = "",
+    @title = AquaPlot::Util::Title.new,
     @xlabel = "",
     @xrange = AquaPlot::Util::XY.new,
     @ylabel = "",
@@ -106,7 +107,7 @@ class AquaPlot::GlobalPlotOptions < AquaPlot::DataSet
   end
 
   def get_title
-    _setting_to_string "title", @title, quotes: true
+    @title.to_s
   end
 
   def get_xlabel
@@ -165,8 +166,7 @@ class AquaPlot::GlobalPlotOptions < AquaPlot::DataSet
   def set_time(@time)
   end
 
-  def set_title(@title)
-  end
+  delegate set_title_text, set_title_font, set_title_offset, set_title_color, set_title_linetype, set_title_enhanced, to: @title
 
   def set_xlabel(@xlabel)
   end
