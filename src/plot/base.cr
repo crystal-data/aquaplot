@@ -24,6 +24,7 @@ class AquaPlot::GlobalPlotOptions < AquaPlot::DataSet
   property ylabel : String
   property xrange : AquaPlot::Util::XY
   property yrange : AquaPlot::Util::XY
+  property ticks_hash : Hash(String, String) = Hash(String, String).new
 
   #
   # INITIALIZATION
@@ -98,6 +99,15 @@ class AquaPlot::GlobalPlotOptions < AquaPlot::DataSet
     _setting_to_string "tics", @tics
   end
 
+  def get_axis_tics
+    s = ""
+    @ticks_hash.each do |k, v|
+      s += "set #{k}tics #{v}"
+      s += "\n"
+    end
+    s
+  end
+
   def get_ticslevel
     _setting_to_string "ticslevel", @ticslevel
   end
@@ -160,6 +170,10 @@ class AquaPlot::GlobalPlotOptions < AquaPlot::DataSet
   def set_tics(@tics)
   end
 
+  def set_axis_ticks(axis, options)
+    @ticks_hash[axis] = options
+  end
+
   def set_ticslevel(@ticslevel)
   end
 
@@ -193,6 +207,7 @@ class AquaPlot::GlobalPlotOptions < AquaPlot::DataSet
       get_output,
       get_terminal,
       get_tics,
+      get_axis_tics,
       get_ticslevel,
       get_time,
       get_title,
