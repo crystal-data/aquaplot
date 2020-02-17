@@ -146,6 +146,10 @@ abstract class AquaPlot::XYZ < AquaPlot::SeriesOptions
   end
 
   def self.from_points(*points : Tuple(U, V, W)) forall U, V, W
+    from_points(points.to_a)
+  end
+
+  def self.from_points(points : Array(Tuple(U, V, W))) forall U, V, W
     x = [] of U
     y = [] of V
     z = [] of W
